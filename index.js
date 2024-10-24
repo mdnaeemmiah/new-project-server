@@ -8,11 +8,11 @@ const { MongoClient, ServerApiVersion, ObjectId, Timestamp } = require('mongodb'
 const jwt = require('jsonwebtoken')
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY)
 
-const port = process.env.PORT || 8000
+const port = process.env.PORT || 5000
 
 // middleware
 const corsOptions = {
-  origin: ['http://localhost:5173', 'http://localhost:5174'],
+  origin: ['http://localhost:5173', 'http://localhost:5174','https://module-50-52da1.web.app','https://module-50-52da1.firebaseapp.com'],
   credentials: true,
   optionSuccessStatus: 200,
 }
@@ -76,8 +76,8 @@ const verifyToken = async (req, res, next) => {
     next()
   })
 }
-const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.qenm5ah.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`;
 
+const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.qenm5ah.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`;
 const client = new MongoClient(uri, {
   serverApi: {
     version: ServerApiVersion.v1,
@@ -488,10 +488,10 @@ async function run() {
 
 
     // Send a ping to confirm a successful connection
-    // await client.db('admin').command({ ping: 1 })
-    // console.log(
-    //   'Pinged your deployment. You successfully connected to MongoDB!'
-    // )
+    await client.db('admin').command({ ping: 1 })
+    console.log(
+      'Pinged your deployment. You successfully connected to MongoDB!'
+    )
   } finally {
     // Ensures that the client will close when you finish/error
   }
